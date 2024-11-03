@@ -1,0 +1,29 @@
+package com.main.model;
+
+import java.time.LocalDateTime;
+
+public class Reading {
+    private String value;
+    private LocalDateTime timestamp;
+
+    public Reading(String value, LocalDateTime timestamp) {
+        this.value = value;
+        this.timestamp = timestamp;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+}
