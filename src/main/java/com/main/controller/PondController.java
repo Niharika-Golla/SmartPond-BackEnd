@@ -34,12 +34,18 @@ public class PondController {
     }
 
     @PostMapping("/add")
-    public Pond addPond(@RequestBody Pond pond) {
+    public ResponseEntity<?> addPond(@RequestBody Pond pond) {
+        // Check if a pond with the same ID already exists
+        if (pondRepository.existsById(pond.getId())) {
+            return ResponseEntity.status(409).body("A pond with the same ID already exists."); // 409 Conflict
+        }
+        
         pond.setCreatedAt(LocalDateTime.now());  // Set the created time when adding a new pond
         Pond savedPond = pondRepository.save(pond);
         savedPond.setCreatedAt(convertToLocalTime(savedPond.getCreatedAt())); // Convert to local time for response
-        return savedPond;
+        return ResponseEntity.ok(savedPond);
     }
+
 
     @GetMapping("/{pondId}/sensors")
     public List<Sensor> getSensorsByPond(@PathVariable String pondId) {
